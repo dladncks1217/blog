@@ -2,9 +2,9 @@
 title: "JS 엔진의 히든 클래스(Hidden Class)와 코드 실행 최적화를 위한 인라인 캐싱(Inline Caching)"
 category: "JavaScript"
 date: "2021-03-03 23:40:00 +09:00"
-desc: "오프셋을 컴파일 단계에서 결정할 수 없는 JS, 어떻게 해결했을까?"
+desc: "컴파일 단계에서 오프셋을 결정할 수 없는 JS 엔진, 어떻게 해결했을까?"
 thumbnail: "./images/javascript/hidden-class/9.png"
-alt: "오프셋을 컴파일 단계에서 결정할 수 없는 JS, 어떻게 해결했을까?"
+alt: "컴파일 단계에서 오프셋을 결정할 수 없는 JS 엔진, 어떻게 해결했을까?"
 ---
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fhidden-class&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)

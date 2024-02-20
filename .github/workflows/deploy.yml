@@ -36,6 +36,6 @@ jobs:
         run: |
           aws s3 sync \
             --region ap-northeast-2 \
-            build s3://resume-woochan \
+            ./public s3://resume-woochan \
             --delete
-        working-directory: ./public
+        

@@ -2,7 +2,7 @@
 title: "프로토타입(Prototype)과 프로토타입 체인(Prototype Chain)"
 category: "JavaScript"
 date: "2023-02-18 23:22:00 +09:00"
-desc: "JavaScript"
+desc: "3년 4개월만에 다시 작성하는 Prototype에 관한 글"
 thumbnail: "./images/javascript/prototypechain/prototype_chain.png"
 alt: "무려 3년 4개월만에 다시 작성하는 Prototype에 관한 글"
 ---

@@ -2,7 +2,7 @@
 title: "V8 엔진의 메모리 구조와 가비지 컬렉션(Garbage Collection)의 동작원리"
 category: "Node.js"
 date: "2021-04-12 23:59:00 +09:00"
-desc: "Node.js"
+desc: "자바스크립트 엔진은 어떻게 GC작업을 하는가?"
 thumbnail: "./images/nodejs/garbage-collection/garbage-collection8.png"
 alt: "V8 엔진의 메모리 구조와 가비지 컬렉션(Garbage Collection)의 동작원리"
 ---
@@ -106,8 +106,8 @@ V8의 New Space에서 일어나는 Minor GC는 체니의 알고리즘(Cheney's A
 <br/>
 
 이후 From인 semi-space에 남아있는 객체들은 가비지로 인식하고 모두 제거된다.
-이 과정이 마이너GC 과정이고, 이는 Scavenger(스케벤져)라고 부르기도 한다.
-이러한 마이너GC는 stop-the-world 프로세스이지만, 굉장히 빠르기 때문에 무시가 가능한 정도이다.
+이 과정이 마이너GC 과정이고, 이 과정은 Scavenger(스케벤져)라는 stop-the-world 프로세스가 작업하게 된다. 
+stop-the-world 프로세스지만, 굉장히 빠르기에 무시 가능한 정도이다.
 
 <br/>
 

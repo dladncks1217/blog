@@ -7,6 +7,7 @@ thumbnail: "./images/javascript/hidden-class/9.png"
 alt: "오프셋을 컴파일 단계에서 결정할 수 없는 JS, 어떻게 해결했을까?"
 ---
 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fhidden-class&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 이 글의 주제인 히든 클래스와 인라인 캐싱에 대해 설명하기 전에, 
 먼저 자바스크립트의 객체의 프로퍼티와 프로퍼티 값은 어떻게 저장이 될지 한번 생각해보자.

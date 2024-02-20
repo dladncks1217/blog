@@ -7,6 +7,8 @@ thumbnail: "./images/javascript/execution-context/9.png"
 alt: "ES6에서 Execution Context의 동작 방식과 Lexical Nesting Structure(Scope chain)"
 ---
 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fexecution-context&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 ES5를 기점으로 Execution Context의 동작하는 방식과 구조가 많이 달라졌다.
 이 블로그의 예전 포스팅에서는 대부분 그 이전의 Execution Context를 기준으로 포스팅을 작성했었다.
 ES6의 Execution Context에 대해 ES3의 Execution Context와 비교하며 한번 정리해 보려 한다.

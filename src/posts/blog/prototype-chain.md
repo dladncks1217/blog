@@ -7,6 +7,7 @@ thumbnail: "./images/javascript/prototypechain/prototype_chain.png"
 alt: "무려 3년 4개월만에 다시 작성하는 Prototype에 관한 글"
 ---
 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fprototype-chain&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 무려 3년 4개월만에 다시 작성하는 Prototype에 관한 글이다.
 최근에 다른 사람과 Prototype에 관한 이야기를 잠깐 할 일이 생겨 예전에 내가 썼던 글을 어쩌다 볼 일이 있었다.

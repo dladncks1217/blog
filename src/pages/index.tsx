@@ -55,7 +55,11 @@ const Home = ({
       <SEO title="Home" />
       <Main>
         <Content>
+        <HitDiv>
+          <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a>
+          </HitDiv>
           <CategoryFilter categoryList={data.allMarkdownRemark.group} />
+          
           <PostTitle>{postTitle}</PostTitle>
           <PostGrid posts={posts} />
         </Content>
@@ -68,6 +72,12 @@ const Main = styled.main`
   min-width: var(--min-width);
   min-height: calc(100vh - var(--nav-height) - var(--footer-height));
   background-color: var(--color-background);
+`
+
+const HitDiv = styled.div`
+  display:flex;
+  align-items:center;
+  padding-bottom:2.5%;
 `
 
 const Content = styled.div`

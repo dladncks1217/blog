@@ -7,6 +7,8 @@ thumbnail: "./images/nodejs/garbage-collection/garbage-collection8.png"
 alt: "V8 엔진의 메모리 구조와 가비지 컬렉션(Garbage Collection)의 동작원리"
 ---
 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fgarbage-collection&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 <img src="./images/nodejs/garbage-collection/garbage-collection1.png" alt="garbage-collection.png"/> 
 
 자바스크립트 엔진이라고 하면 위 그림과 같이 메모리 힙과 콜 스택으로 나뉘게 된다.

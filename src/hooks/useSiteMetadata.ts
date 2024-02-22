@@ -16,6 +16,9 @@ const useSiteMetadata = () => {
           author
           siteUrl
           lang
+          commentRepo
+          commentRepoId
+          commentCategoryId
           utterances {
             repo
           }

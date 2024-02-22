@@ -7,7 +7,6 @@ thumbnail: "./images/nodejs/eventloop/3.png"
 alt: "이벤트 루프라는 개념을 코드로서 구현 할 수는 있지만, 이벤트 루프 그 자체는 코드가 아니다."
 ---
 
-
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fevent-loop&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 JavaScript와 관련된 공부를 하다보면 이벤트 루프라는 말을 종종 마주하곤 한다.
@@ -22,7 +21,7 @@ Chrome같은 브라우저나 JavaScript 런타임인 Node.js에는 이벤트 루
 이벤트 루프는 굉장히 추상적인 개념이다.
 이벤트 처리를 위한 일련의 방법을 "이벤트 루프(Event Loop)" 라고 부른다.
 따라서 "이벤트 루프"라는 개념을 코드로서 구현 할 수는 있지만, "이벤트 루프" 그 자체는 코드가 아니다.
-예시로, V8엔진은 자바스크립트 코드를 읽기 위해서 존재하는 엔진이다. 파일 읽어오기 등과 같은 비동기로 동작해야할 특정한 이벤트를 만난다면, V8 엔진은 이 작업을 처리할 수 없다. 
+예시로, V8엔진은 자바스크립트 코드를 읽기 위해서 존재하는 엔진이다. 파일 읽어오기 등과 같은 비동기로 동작해야할 특정한 이벤트를 만난다면, V8 엔진은 이 작업을 처리할 수 없다.
 결국 파일 읽기와 같은 작업은 운영체제의 커널에 요청을 해야하는데, 자바스크립트 코드가 이러한 이벤트를 만났을 때 "어떠한 방식으로 어떻게 처리할 것인가" 라는 것이 이벤트 루프라는 개념이다.
 그리고 이는 각각 Node.js의 libuv와 chrome의 libevent에서 각기 다른 방법으로 구현되어있다.
 
@@ -52,16 +51,14 @@ libuv, libevent 같은 라이브러리는 V8엔진과 OS의 커널 사이에서 
 
 그렇다면 먼저 Node.js에서의 이벤트 처리 방법에 대해 알아보자.
 
-
 2번에서 언급했던 것처럼 V8엔진은 자바스크립트 코드를 읽다가 비동기로 처리해야할 작업이 있다면 libuv로 넘겨버린다. 작업을 넘겨받은 libuv는 그 작업을 libuv 자신이 처리할 수 있는 일인지를 판단한다.
 만약 처리하고자 하는 일이 타이머같은 동작이라면 libuv 내에서 충분히 처리할 수 있는 일이다. 따라서 이런 작업들은 libuv 내에서 비동기적으로 함수를 호출하여 처리한다.
 
 만약 파일 읽어오기와 같이 libuv가 혼자 처리할 수 없는 일이라면 libuv는 libuv 내의 쓰레드풀(Thread Pool)을 이용하여 커널에 요청을 한다. 이 때, 쓰레드 풀을 이용해 커널에 요청해야하는 경우는 비동기로 동작하지 않고 그 작업이 끝날 때 까지 기다린 뒤 결과를 가져오는 동기적인 방식으로 동작한다.
 이러한 모든 과정은 싱글 쓰레드로 동작한다.
 
-이렇게 하고자 하는 비동기 또는 동기 작업이 끝났다면, 작업의 종류에 따라 libuv에 있는 8개의 큐 중 하나에 콜백 형태로 들어간다. 
+이렇게 하고자 하는 비동기 또는 동기 작업이 끝났다면, 작업의 종류에 따라 libuv에 있는 8개의 큐 중 하나에 콜백 형태로 들어간다.
 아래는 libuv에 있는 큐들의 이름이다.
-
 
 > 1. nextTickQueue
 > 2. microTaskQueue
@@ -72,7 +69,7 @@ libuv, libevent 같은 라이브러리는 V8엔진과 OS의 커널 사이에서 
 > 7. Check
 > 8. Close Callbacks
 
-이 때 1번과 2번(nextTickQueue, microTaskQueue)을 제외한 각각의 큐 들을(3 ~ 8번) 페이즈(phase)라고 부른다. 
+이 때 1번과 2번(nextTickQueue, microTaskQueue)을 제외한 각각의 큐 들을(3 ~ 8번) 페이즈(phase)라고 부른다.
 
 <img src="./images/nodejs/eventloop/2.png" alt="2.png"/> 
 <br/>
@@ -82,7 +79,7 @@ libuv, libevent 같은 라이브러리는 V8엔진과 OS의 커널 사이에서 
 
 각 페이즈들의 역할은 아래와 같다.
 
-**1. Timer phase** 
+**1. Timer phase**
 이 페이즈는 setTimeout(), setInterval()같은 작업들을 하는 페이즈이다.
 또한 이벤트 루프의 시작이 되는 기준점인 페이즈이기도 하다.
 지정된 시간에 맞게 기다리다가 그 시간이 되면 타이머의 콜백을 Timer phase의 큐에 넣는다.
@@ -91,68 +88,72 @@ libuv, libevent 같은 라이브러리는 V8엔진과 OS의 커널 사이에서 
 이 페이즈의 큐에 들어가있는 콜백의 경우 다음 루프 반복으로 인해 연기된 I/O의 콜백이다.
 각 페이즈가 모든 작업을 다 하고 다음 페이즈로 넘어가는 것이 아니다 보니 조금 작업을 하다 남은 작업을 이 페이즈에서 하게 된다. 그 후 작업이 끝나면 이 Pending I/O callback phase의 큐에 넣는다.
 
-
 **3. Idle, Prepare phase**
 이 페이즈의 경우 Node.js의 내부 관리를 위해 사용되는 페이즈이다.
 매 tick마다 실행이 된다.
-
 
 **4. Poll phase**
 이 페이즈는 I/O와 관련된 콜백들을 처리하는 페이즈이다.
 타이머가 걸려있는 콜백들을 제외한 대부분이 이 페이즈에서 처리된다.
 
-
 **5. Check phase**
 이 페이즈의 경우 setImmediate()의 콜백을 위한 페이즈이다.
 setImmediate()의 경우 setTimeout(), setInterval()과 다르게 이 Check phase에서 관리된다.
-
 
 **6. Close phase**
 close 타입의 이벤트들이 처리되는 페이즈이다.
 ex) .on('close', ()=>{ ... });
 
 ```js
-const fs = require('fs');
+const fs = require("fs")
 
-fs.readFile('./hello.txt',(err,data)=>{ // hello.txt 파일의 내용은 "안녕하세요!"
-	console.log(data.toString());
-});
-console.log("hi!");
-function hello(){
-	console.log("배고프다");
+fs.readFile("./hello.txt", (err, data) => {
+  // hello.txt 파일의 내용은 "안녕하세요!"
+  console.log(data.toString())
+})
+console.log("hi!")
+function hello() {
+  console.log("배고프다")
 }
-hello();
+hello()
 ```
 
 위와 같은 코드를 v8이 실행했다고 해보자.
 readFile()를 읽는순간 v8은 이 작업을 libuv로 보낼 것이다. 작업을 받은 libuv는 이 작업을 libuv 스스로 할 수 없는 작업임을 확인하고 OS의 커널에 파일을 읽어달라는 요청을 보낼 것이다. 이후 파일 읽기가 완료되면 libuv는 결과를 받아 Poll Phase에 넣는다. 이러는 와중에 v8은 코드들을 마저 실행한다.
 코드가 다 끝났다면 libuv는 등록된 콜백이 있는지 확인한다. 없다면 그대로 코드를 종료했겠지만, 있다면 앞서 말한 6개의 페이즈를 순회하며 콜백들을 처리한다.
-순회하던 중 Poll Phase에서  readFile()결과값을 가져올 수 있을 것이다.
+순회하던 중 Poll Phase에서 readFile()결과값을 가져올 수 있을 것이다.
 따라서 코드의 결과는 아래와 같다.
 
-
->hi!
->배고프다
->안녕하세요!              
->// 파일 내용 (Poll Phase에서 가져옴.)
+> hi!
+> 배고프다
+> 안녕하세요!  
+> // 파일 내용 (Poll Phase에서 가져옴.)
 
 그리고 설명하지 않은 nextTickQueue와 microTaskQueue는 libuv에서 별도로 관리되는 큐이다.
-process.nextTick()으로 작성된 코드들이 nextTickQueue에 들어가고, Promise()로 작성된 코드들이 microTaskQueue에 들어간다. 
+process.nextTick()으로 작성된 코드들이 nextTickQueue에 들어가고, Promise()로 작성된 코드들이 microTaskQueue에 들어간다.
 nextTickQueue가 microTaskQueue보다 우선순위가 높으며, 이 두 큐는 앞서 말한 6개의 페이즈(Timer, Pending I/O, Idle, Pole, Check, Close Callback)을 tick이 발생하고 다음 페이즈로 넘어가기 전에 우선적으로 콜백을 처리하게 되는 그런 큐이다.
 
 아래 코드를 통해 한번 알아보자.
 
 ```js
-setTimeout(()=>{console.log("settimeout0")},0);
-setImmediate(()=>{console.log("setimmediate")});
-function hi(){
-	return new Promise((resolve)=>{
-		resolve();
-	});
+setTimeout(() => {
+  console.log("settimeout0")
+}, 0)
+setImmediate(() => {
+  console.log("setimmediate")
+})
+function hi() {
+  return new Promise(resolve => {
+    resolve()
+  })
 }
-hi().then(()=>{console.log("나는promise")});
-process.nextTick(()=>{console.log("나는process.nexttick")});
-console.log("콘솔찍었다");
+hi().then(() => {
+  console.log("나는promise")
+})
+process.nextTick(() => {
+  console.log("나는process.nexttick")
+})
+console.log("콘솔찍었다")
 ```
 
 먼저 코드는 setTimeout() -> setImmediate()-> Promise -> nextTick() -> console.log() 순으로 만나게 될 것이다.
@@ -162,11 +163,11 @@ console.log()를 제외하고는 모두 비동기로 처리되어야 하는 코�
 
 결론적으로 아래와 같은 결과가 찍히게 된다.
 
->콘솔찍었다
-나는process.nexttick
-나는promise
-settimeout0
-setimmediate
+> 콘솔찍었다
+> 나는process.nexttick
+> 나는promise
+> settimeout0
+> setimmediate
 
 ### 3. 브라우저(Chrome)에서의 Event Loop
 
@@ -174,7 +175,6 @@ setimmediate
 
 <img src="./images/nodejs/eventloop/3.png" alt="3.png"/> 
 <br/>
-
 
 V8 엔진이 코드를 읽다 비동기 관련한 코드가 나오면 바로 libuv로 넘겨버리는 Node.js와는 다르게, 브라우저의 경우 WebAPI를 사용하거나 사용자 이벤트가 발생하면 libevent로 넘겨 처리하는 구조이다.
 Chrome의 libevent를 통한 이벤트 처리는 3가지 큐를 통해 이루어진다.
@@ -185,7 +185,6 @@ Chrome의 libevent를 통한 이벤트 처리는 3가지 큐를 통해 이루어
 
 **3. MacroTaskQueue**
 
-
 ### 3-1) MicroTaskQueue (Job Queue)
 
 MicroTaskQueue는 Node.js의 libuv에서의 역할과 비슷한 역할을 한다.
@@ -194,18 +193,17 @@ MicroTaskQueue는 큐가 빌 때 까지 계속해서 작업을 수행한다. 이
 그 탭이 먹통이 될 것이다.
 
 ```js
-function loop(){
-    console.log("microtaskqueue");
-    queueMicrotask(loop);
+function loop() {
+  console.log("microtaskqueue")
+  queueMicrotask(loop)
 }
-loop();
+loop()
 ```
 
 ### 3-2) Animation Frames (Render Queue)
 
 이 큐는 requestAnimationFrame()라는 API를 통해 생성된 콜백이 들어가는 큐이다.
-requestAnimationFrame()은 브라우저에게 수행하기를 원하는 애니메이션을 알리고 다음 RePaint가  진행되기 전에 해당 애니메이션을 업데이트하는 함수를 호출하는 메서드이다.
-
+requestAnimationFrame()은 브라우저에게 수행하기를 원하는 애니메이션을 알리고 다음 RePaint가 진행되기 전에 해당 애니메이션을 업데이트하는 함수를 호출하는 메서드이다.
 
 브라우저의 렌더링 과정은 아래의 과정을 거친다.
 
@@ -219,14 +217,15 @@ requestAnimationFrame()은 브라우저에게 수행하기를 원하는 애니�
 이 때 3번 Layout(Reflow) 과정은 Layout Tree를 통해 어떤 노드가 어느 위치에 존재하게되는지 기하학적 데이터를 결정하는 과정으로, 이 과정이 발생하는 상황은 정해져 있다.
 
 > 노드 추가 제거
-노드 크기, 위치 변경
-폰트 변경, 이미지 크기 변경, 텍스트 내용 변경
-페이지 초기 렌더링시 
-브라우저 리사이즈
+> 노드 크기, 위치 변경
+> 폰트 변경, 이미지 크기 변경, 텍스트 내용 변경
+> 페이지 초기 렌더링시
+> 브라우저 리사이즈
 
-따라서 requestAnimationFrame() 가 호출되면 
-1. Layout (Reflow)과정이 다시 호출되고, 
-2. Layout Tree에 존재하는 요소들을 픽셀로 전환하는 "Paint(Repaint)" 과정을 거친 뒤 
+따라서 requestAnimationFrame() 가 호출되면
+
+1. Layout (Reflow)과정이 다시 호출되고,
+2. Layout Tree에 존재하는 요소들을 픽셀로 전환하는 "Paint(Repaint)" 과정을 거친 뒤
 3. Layer로 쪼갠 뒤 GPU에게 넘겨 화면을 변경.
 
 이런 방식으로 렌더링되는 과정을 "렌더링 파이프라인"이라고 부르는데, 이런 과정들의 일부가 requestAnimationFrame() 호출을 하게 된다면 Animation Frames(Render Queue)에 들어가는 것이다.

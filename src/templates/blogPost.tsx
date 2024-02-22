@@ -1,20 +1,31 @@
 import React from "react"
 
+import Giscus from "@giscus/react"
 import { type PageProps, graphql } from "gatsby"
 import styled from "styled-components"
 
-import Comment from "~/src/components/comment"
 import SEO from "~/src/components/seo"
+import useSiteMetadata from "~/src/hooks/useSiteMetadata"
 import Layout from "~/src/layouts/layout"
 import Category from "~/src/styles/category"
 import DateTime from "~/src/styles/dateTime"
 import Markdown from "~/src/styles/markdown"
 import { rhythm } from "~/src/styles/typography"
 
+import useTheme from "../hooks/useTheme"
+
 const BlogPost: React.FC<PageProps<Queries.Query>> = ({ data }) => {
+  const site = useSiteMetadata()
   const { markdownRemark } = data
   const { frontmatter, html } = markdownRemark!
   const { title, desc, thumbnail, date, category } = frontmatter!
+  const { commentRepo, commentRepoId, commentCategoryId } = site ?? {
+    commentRepo: undefined,
+    commentRepoId: undefined,
+    commentCategoryId: undefined,
+  }
+
+  const { theme: GiscusTheme } = useTheme()
 
   const ogImagePath =
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -47,7 +58,21 @@ const BlogPost: React.FC<PageProps<Queries.Query>> = ({ data }) => {
           </OuterWrapper>
         </article>
         <CommentWrap>
-          <Comment />
+          <Giscus
+            id="comments"
+            repo={commentRepo as `${string}/${string}`}
+            repoId={commentRepoId as string}
+            category="Comments"
+            categoryId={commentCategoryId as string}
+            mapping="pathname"
+            strict="0"
+            reactionsEnabled="1"
+            emitMetadata="0"
+            inputPosition="bottom"
+            theme={GiscusTheme}
+            lang="ko"
+            loading="lazy"
+          />
         </CommentWrap>
       </main>
     </Layout>
@@ -73,7 +98,7 @@ const InnerWrapper = styled.div`
 `
 
 const CommentWrap = styled.section`
-  width: 100%;
+  width: 60%;
   padding: 0 var(--padding-sm);
   margin: 0 auto;
   margin-bottom: var(--sizing-xl);

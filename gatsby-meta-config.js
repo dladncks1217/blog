@@ -11,6 +11,9 @@
  * @prop {string} siteUrl Your website URL
  * @prop {string} lang Your website Language
  * @prop {string} utterances Github repository to store comments
+ * @prop {string} commentRepo Github repository to store comments
+ * @prop {string} commentRepoId Github repository to store comments
+ * @prop {string} commentCategoryId Github repository to store comments
  * @prop {Links} links
  * @prop {string} favicon Favicon Path
  */
@@ -22,11 +25,14 @@ const metaConfig = {
   author: "Woochan Lim",
   siteUrl: "https://blog.woochan.info",
   lang: "en",
-  utterances: "dladncks1217/blog-comments",
+  utterances: "dladncks1217/blog",
   links: {
     github: "https://github.com/dladncks1217",
   },
   favicon: "src/images/icon.png",
+  commentRepo: "dladncks1217/blog",
+  commentRepoId: "R_kgDOLUpoFQ",
+  commentCategoryId: "DIC_kwDOLUpoFc4CdZbA",
 }
 
 // eslint-disable-next-line no-undef

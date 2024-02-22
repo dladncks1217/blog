@@ -22,6 +22,7 @@
     "postinstall": "husky install"
   },
   "dependencies": {
+    "@giscus/react": "^2.4.0",
     "dark-github-theme": "https://github.com/remorses/dark-github-theme.git#commit=3dde125a391f5557fcc42e0d95899750df4370bf",
     "gatsby": "^5.12.12",
     "gatsby-plugin-feed": "^5.12.3",

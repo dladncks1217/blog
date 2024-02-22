@@ -9,6 +9,9 @@ const siteMetadata = {
   utterances: {
     repo: meta.utterances,
   },
+  commentRepo: meta.commentRepo,
+  commentRepoId: meta.commentRepoId,
+  commentCategoryId: meta.commentRepoId,
   postTitle: "All",
   menuLinks: [
     {

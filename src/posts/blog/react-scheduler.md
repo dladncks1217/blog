@@ -16,15 +16,14 @@ alt: "동시성 모드 지원을 위한 React의 스케줄러 분석하기"
 글을 시작하기 전에, 제목에 있는 "동시성" 이라는 단어를 먼저 짚고 가자.
 동시성이라는 단어와 함께 자주 언급되는 단어로는, "병렬성" 이라는 단어가 있는데, "동시성"과 "병렬성" 이라는게 대체 뭘까?
 
-![1](./images/react/scheduler/1.png) |![2](./images/react/scheduler/2.png)
---- | --- |
+| ![1](./images/react/scheduler/1.png) | ![2](./images/react/scheduler/2.png) |
+| ------------------------------------ | ------------------------------------ |
 
 그림 하나로 표현하자면 이런거다.
 동시성은 말 그대로 "동시에 실행되는 것처럼 보이도록 하는것"이다. 실제로 동시에 실행하는것이 아니기 때문에 컨텍스트 스위칭같은 작업이 필요하다.
 여러 개의 작업을 아주 잘게 나누어 동시에 실행되는 것처럼 보이게 하는 것이기에, 싱글 코어에서도 동작이 가능하다.
 
 이와 반대로, 병렬성은 실제도 동시에 실행하는 것을 의미한다.
-
 
 조금 뜬금없을 수 있다.
 제목에 동시성이라는 단어가 있다는 이유로 동시성과 병렬성을 이야기했기 때문이다. 왜 React에서 "동시성" 이라는 단어가 나오게 된걸까?
@@ -40,7 +39,6 @@ alt: "동시성 모드 지원을 위한 React의 스케줄러 분석하기"
 
 <img src="./images/react/scheduler/3.png" alt="3.png"/> 
 <br/>
-
 
 정말정말 많이 생략하자면 이런 구조이다.
 맨 처음 파싱 과정에서 DOM을 파싱하여 C++객체로 만드는 과정이 진행되는데, 여기서 JS 코드도 읽는 과정이 진행된다.
@@ -112,7 +110,6 @@ performance.now() - startTime < 10
 그렇다면 위에 있던 예제는 어떻게 개선할 수 있을까?
 바로 "useTransition" 이라는 훅을 이용해 개선 가능하다. 이는 우선순위를 후순위로 미룰 수 있는 훅이다!
 
-
 ```js
 const [_, startTransition] = useTransition();
 
@@ -139,14 +136,11 @@ const handleText = (event: ChangeEvent<HTMLInputElement>) =>
 <img src="./images/react/scheduler/12.png" alt="12.png"/> 
 <br/>
 
-
 3가지 작업을 하는 것이다.
 
->1. Yielding : 5ms마다 한번씩 React 멈추기(libevent같은 비동기처리 라이브러리가 프로미스같은거 처리할수도 있고 중요 작업이 있을수도 있으니깐)
->2. Interrupting : 우선순위 높은 작업 만나면 중단하기
->3. 이전 결과 건너뛰기 : 최종 상태만 반영하도록 중간에 하던작업 건너뛰기
-
-
+> 1.  Yielding : 5ms마다 한번씩 React 멈추기(libevent같은 비동기처리 라이브러리가 프로미스같은거 처리할수도 있고 중요 작업이 있을수도 있으니깐)
+> 2.  Interrupting : 우선순위 높은 작업 만나면 중단하기
+> 3.  이전 결과 건너뛰기 : 최종 상태만 반영하도록 중간에 하던작업 건너뛰기
 
 이 3개의 작업을 하기 위해서 즉, React에서 동시성을 위한 아키텍처를 어떻게 설계하였을까?
 
@@ -155,7 +149,7 @@ const handleText = (event: ChangeEvent<HTMLInputElement>) =>
 ### 2. 스케줄러 : 동시성을 위한 React의 멘탈 모델
 
 가장 먼저 필요한건 스케줄러일 것이다. 우선순위가 높은 작업을 만나면 중단하고 그 작업을 먼저 수행하는 등의 컨텍스트 스위칭이 필요하기 때문이다.
-그럼 두 가지가 필요하다. 
+그럼 두 가지가 필요하다.
 하나는 스레드를 블록하지 않는 루프, 다른 하나는 루프 안에서 탈출할 수 있는 방법이다.
 
 <hr/>
@@ -173,9 +167,8 @@ const handleText = (event: ChangeEvent<HTMLInputElement>) =>
 
 위 그림을 보면 알 수 있겠지만, 렌더러 즉, 브라우저단으로 넘어가서 렌더링 파이프라인이 시작되는 순간, 그 이후의 작업은 멈출 방법이 없다.
 브라우저가 하는 일이기 때문이다.
-그렇기에 Stack Reconcilation 이후 renderer 과정 시작 전에 한번 멈추는 작업이 필요하다. 
+그렇기에 Stack Reconcilation 이후 renderer 과정 시작 전에 한번 멈추는 작업이 필요하다.
 렌더링 파이프라인에 직접 관여하고자 하는 상황인지라, 이를 위해 2가지 방법을 고려했다.
-
 
 1. requestAnimationFrames 사용하기
 2. requestIdleCallback 사용하기
@@ -202,7 +195,7 @@ RequestAnimationFrame은 이후 작업(paint까지)이 얼마나 걸릴지 알 �
 
 <hr/>
 
-### 2-3) Stack Reconcilation에서 고려한 방법2 :  사용하기
+### 2-3) Stack Reconcilation에서 고려한 방법2 : 사용하기
 
 결국 requestAnimationFrame을 사용하는 방법은 포기하고 찾은 방법이 requestIdleCallback을 사용하는 방법이다.
 이 경우 requestAnimationFrame과는 다르게 얼마 정도의 시간이 남았는지 파악할 수 있다.
@@ -214,32 +207,33 @@ RequestAnimationFrame은 이후 작업(paint까지)이 얼마나 걸릴지 알 �
 이런식으로 사용하는 것이다.
 
 ```js
-let job = null;
-let count = 0;
+let job = null
+let count = 0
 
-function jobLoop(deadline){
-    console.info('jobInfo');
-    if(count++ > 1000){
-        console.clear();
-        count = 0;
-    }
-    while(job && deadline.timeRemaining() > 0){ // 할 일 있으면서 idle상태일때 job 하고 다음 job 할당해라
-        job = performJob(job);
-    }
+function jobLoop(deadline) {
+  console.info("jobInfo")
+  if (count++ > 1000) {
+    console.clear()
+    count = 0
+  }
+  while (job && deadline.timeRemaining() > 0) {
+    // 할 일 있으면서 idle상태일때 job 하고 다음 job 할당해라
+    job = performJob(job)
+  }
 
-    requestIdleCallback(jobLoop);
+  requestIdleCallback(jobLoop)
 }
 
-function performJob(job){
-    console.info(job);
-    if(job && job.value < 10){
-        return { value: job.value + 1 }
-    }
-    return null;
+function performJob(job) {
+  console.info(job)
+  if (job && job.value < 10) {
+    return { value: job.value + 1 }
+  }
+  return null
 }
 
 // 유휴시간이면 jobLoop 실행해라
-requestIdleCallback(jobLoop);
+requestIdleCallback(jobLoop)
 ```
 
 <img src="./images/react/scheduler/18.gif" alt="18.gif"/> 
@@ -267,7 +261,6 @@ IE와 Safari가 지원을 안했기 때문이다 ㅋㅋㅋㅋㅋㅋ
 
 <hr/>
 
-
 ### 3. 동시성을 위해 탄생한 React팀의 새로운 스케줄러
 
 바로 위에서 requestIdleCallback을 이용해 스케줄러가 어떤 느낌으로 구성되어있는지를 이야기했다. React팀은 새로운 스케줄러를 requestIdleCallback을 사용때 유사한 방식인데, 여러 작업이 자발적으로 자원을 양보하고 협력하여 실행을 조절하도록 하는 "협력적 스케줄링" 방식의 스케줄러를 만들었다.
@@ -277,12 +270,12 @@ IE와 Safari가 지원을 안했기 때문이다 ㅋㅋㅋㅋㅋㅋ
 우리는 React에서 즉, JavaScript에서 렌더 작업을 멈추고 시작하고 해야 한다.
 requestIdleCallback은 브라우저가 16.67 ms동안 한 프레임 찍어내는 과정에서 유휴상태를 활용하는 것이었다면, JavaScript에서는 어떻게 이 유휴상태를 판단할 수 있을까?
 
-
-맞다. 자바스크립트에게는 이벤트루프가 있다. 
+맞다. 자바스크립트에게는 이벤트루프가 있다.
 해야 하는 작업을 잘게잘게 쪼개서 이벤트루프로 보내버리는 것이다.
 그럼 main Call Stack이 비워지게 된다면 이벤트루프로 가게 될 것이고, 여기에 있는 작업을 진행하게 될 것이다.
 이 때, setTimeout대신 setImmediate를 사용하는데 4ms clamping이 있어서 setImmediate를 사용한단다.
-실제 주석에 나와있는 내용이다. (setImmediate도 실제로는 즉시실행 아니고 4ms 정도 걸리는걸로 아는데 아닌가...?)
+실제 주석에 나와있는 내용이다.
+~~(setImmediate도 실제로는 즉시실행 아니고 4ms 정도 걸리는걸로 아는데 아닌가...?)~~
 
 <img src="./images/react/scheduler/20.png" alt="20.png"/> 
 <br/>
@@ -294,7 +287,7 @@ requestIdleCallback은 브라우저가 16.67 ms동안 한 프레임 찍어내는
 <img src="./images/react/scheduler/21.png" alt="21.png"/> 
 <br/>
 
-이게 Scheduler와 Reconcilation의 전체 흐름도이다. 
+이게 Scheduler와 Reconcilation의 전체 흐름도이다.
 이 흐름도의 React코드들을 분석해보자.
 
 <hr/>
@@ -306,8 +299,7 @@ requestIdleCallback은 브라우저가 16.67 ms동안 한 프레임 찍어내는
 
 ReactDOMRoot.prototype.render()를 이용해 이벤트를 예약하게 된다.
 이벤트를 예약하며 이런저런 코드들을 거치는데, 결국에는 scheduleCallback이라는 함수를 통해 PerformConcurrentWorkOnRoot 함수와 그 이벤트의 우선순위를 스케줄러로 넘기게 된다. 그 이후에 schedulePerformWorkUntilDeadline 을 거치며 이벤트 루프로 넘어가게 된다.
-여기서 Message Channel 혹은 setImmediate를 통해 performWorkUnitDeadline을 호출하게 되는데, 여기서 필요한 작업을 flush하게 된다. 
-
+여기서 Message Channel 혹은 setImmediate를 통해 performWorkUnitDeadline을 호출하게 되는데, 여기서 필요한 작업을 flush하게 된다.
 
 그 뒤에는 맨 처음 이야기했던 requestIdleCallback을 사용하는 방식대로 CPU에게 얼마나 작업을 할당받는지에 따라 workLoop가 돌게 된다.
 위에서 작성했던 예제인 requestIdleCallback을 사용했을 때를 떠올리면 이해하기 편할 것 같다.
@@ -324,9 +316,9 @@ ReactDOMRoot.prototype.render()를 이용해 이벤트를 예약하게 된다.
 
 그렇다면, 이 "스케줄러" 가 동작하게 하는 핵심 동작에는 뭐가 있을까?
 조금 생각해보면 명확하게 두 개가 있다.
+
 1. 작업의 Priority 정하기
 2. Time Slicing 하기
-
 
 JS로 만든 React의 스케줄러에서는 어떻게 이 기능을 구현했을까?
 아래 그림을 보자.
@@ -431,6 +423,7 @@ function unstable_scheduleCallback(
   return newTask;
 }
 ```
+
 <br/>
 <img src="./images/react/scheduler/25.png" alt="25.png"/> 
 <br/><br/>
@@ -442,7 +435,7 @@ function unstable_scheduleCallback(
 
 <hr/>
 
-이해를 돕기 위해 우리가 사용하는 메서드들을 추가적으로 이야기하자면, 
+이해를 돕기 위해 우리가 사용하는 메서드들을 추가적으로 이야기하자면,
 만약 우리가 일반적으로 사용하는 suspense나 useTransition의 경우, 우선순위가 매우 낮게 설정되기 때문에(우선순위가 같으며 똑같이 매우 낮다.), 타임아웃이 매우 길게 잡힐 것이다.
 우선순위가 낮으니 늦게 처리되도 상관 없기 때문이다.
 
@@ -454,7 +447,7 @@ function unstable_scheduleCallback(
 <hr/>
 
 시작 시간은 현재 시간(getCurrentTime())을 기반으로 계산되는데, 옵션에 뭐가 들어왔는지에 따라 지연(delay)가 설정될 수 있다.
-만료시간의 경우 expirationTime인데, var expirationTime = startTime + timeout; 코드를 보면 알 수 있겠지만, 시작 시간과 타임아웃 시간을 더해 만료시간을 정한다. 
+만료시간의 경우 expirationTime인데, var expirationTime = startTime + timeout; 코드를 보면 알 수 있겠지만, 시작 시간과 타임아웃 시간을 더해 만료시간을 정한다.
 
 이렇게 값들을 정하고 아래와 같은 형태로 하나의
 Task를 만들게 된다.
@@ -485,16 +478,16 @@ Task를 만들게 된다.
 아래 코드가 실제 React의 performWorkUntilDeadline() 함수이다.
 
 ```js
-let isMessageLoopRunning = false;
-let needsPaint = false;
+let isMessageLoopRunning = false
+let needsPaint = false
 // ...
 
 const performWorkUntilDeadline = () => {
   if (isMessageLoopRunning) {
-    const currentTime = getCurrentTime();
+    const currentTime = getCurrentTime()
     // Keep track of the start time so we can measure how long the main thread
     // has been blocked.
-    startTime = currentTime;
+    startTime = currentTime
 
     // If a scheduler task throws, exit the current browser task so the
     // error can be observed.
@@ -502,25 +495,24 @@ const performWorkUntilDeadline = () => {
     // Intentionally not using a try-catch, since that makes some debugging
     // techniques harder. Instead, if `flushWork` errors, then `hasMoreWork` will
     // remain true, and we'll continue the work loop.
-    let hasMoreWork = true;
+    let hasMoreWork = true
     try {
-      hasMoreWork = flushWork(currentTime);
+      hasMoreWork = flushWork(currentTime)
     } finally {
       if (hasMoreWork) {
         // If there's more work, schedule the next message event at the end
         // of the preceding one.
-        schedulePerformWorkUntilDeadline();
+        schedulePerformWorkUntilDeadline()
       } else {
-        isMessageLoopRunning = false;
+        isMessageLoopRunning = false
       }
     }
   }
   // Yielding to the browser will give it a chance to paint, so we can
   // reset this.
-  needsPaint = false;
-};
+  needsPaint = false
+}
 ```
-
 
 우선 코드 처음부터 보면 알 수 있지만, getCurrentTime()을 이용해 현재시간을 가져와 startTime을 할당하는 것을 볼 수 있다.
 이 코드는 메인스레드가 차단된 시간을 측정하기 위한 코드이다.
@@ -537,7 +529,7 @@ const performWorkUntilDeadline = () => {
 
 4-3) React Scheduler의 핵심 로직 : [flushWork](https://github.com/facebook/react/blob/main/packages/scheduler/src/forks/Scheduler.js#L165-L207), [workLoop](https://github.com/facebook/react/blob/main/packages/scheduler/src/forks/Scheduler.js#L209-L274)
 
-flushWork함수는 React의 작업을 처리하고 예외 처리 및 성능 측정을 포함하여 작업을 관리하는 그런 함수이다. 
+flushWork함수는 React의 작업을 처리하고 예외 처리 및 성능 측정을 포함하여 작업을 관리하는 그런 함수이다.
 간단하게 설명하면 workLoop을 호출해주는 친구인데, workLoop가 스케줄러의 핵심적인 로직을 담당하는 함수이다.
 
 아래는 실제 React의 flushWork 함수이다.
@@ -587,7 +579,6 @@ function flushWork(initialTime: number) {
   }
 }
 ```
-
 
 flushWork가 받는 인자를 보면 initialTime이란 값을 받는데, 이는 작업의 시작 시간에 대한 값이다. 이 값은 작업의 진행 시간을 측정하고, 작업이 블로킹된 시간을 계산하고자 받는 것인데, 이를 받아서 프로파일링 도중 작업이 얼마나 걸렸는지 측정하는데 사용하게 된다.
 
@@ -682,7 +673,10 @@ function workLoop(initialTime: number) {
 이후 이 작업을 돌릴건데, 아래 코드를 보자.
 
 ```js
-while (currentTask !== null && !(enableSchedulerDebugging && isSchedulerPaused)){
+while (
+  currentTask !== null &&
+  !(enableSchedulerDebugging && isSchedulerPaused)
+) {
   // ...
 }
 ```
@@ -690,22 +684,22 @@ while (currentTask !== null && !(enableSchedulerDebugging && isSchedulerPaused))
 현재 작업이 존재하고, 스케줄러가 일시 중지되지 않은 동안에 루프가 계속 돌게된다.
 이 글의 초반에 requestIdleCallback으로 짜여진 코드를 봤을 때 처럼 말이다.
 
-그렇게 막 코드를 돌리다가 루프가 중단되는 경우가 있다. 
-if (currentTask.expirationTime > currentTime && shouldYieldToHost())  코드를 만났을 경우 데, 작업 만료 시간이 현재 시간보다 크고 호스트에게 양보해야 하는 시간일 경우에 대한 조건이다. 이럴 경우 하던 작업을 나중에 다시 처리하게 된다.
+그렇게 막 코드를 돌리다가 루프가 중단되는 경우가 있다.
+if (currentTask.expirationTime > currentTime && shouldYieldToHost()) 코드를 만났을 경우 데, 작업 만료 시간이 현재 시간보다 크고 호스트에게 양보해야 하는 시간일 경우에 대한 조건이다. 이럴 경우 하던 작업을 나중에 다시 처리하게 된다.
 
 ​그런데 하던 작업이 다 안끝났는데 shouldYieldtoHost()를 만나 하던 작업을 더 해야하는 경우도 있을 것이다.
 이를 판별하는 코드가 아래 코드이다.
 
 ```js
 if (currentTask !== null) {
-    return true;
-  } else {
-    const firstTimer = peek(timerQueue);
-    if (firstTimer !== null) {
-      requestHostTimeout(handleTimeout, firstTimer.startTime - currentTime);
-    }
-    return false;
+  return true
+} else {
+  const firstTimer = peek(timerQueue)
+  if (firstTimer !== null) {
+    requestHostTimeout(handleTimeout, firstTimer.startTime - currentTime)
   }
+  return false
+}
 ```
 
 **else부분을 보면 되는데, 하고있는 작업을 꺼내 requestHostTimeout()에 담아 다시한번 작업을 담게 된다.**
@@ -722,7 +716,6 @@ function requestHostTimeout(
 }
 ```
 
-
 이게 실제 requestHostTimeout() 코드이다. 사실상 재귀호출이라고 봐도 될 것 같다.
 
 이후 우선순위가 정해진 이 작업은 "최소힙"이기에 우선순위에 따라 잘 배정될 것이다.
@@ -737,7 +730,7 @@ function requestHostTimeout(
 여기까지 내용이 워낙 많다보니 최대한 요약해보겠다.
 React에서 스케줄링되는 React의 작업은 모두 우선순위가 정해져 있다.
 이 모든 "작업" 들의 우선순위는 "현재시간 + 우선순위에 따른 추가 시간"으로 만들어진 "만료시간"(실제 시간)을 기준으로 이루어지는데, 만료시간이 짧을수록 우선순위가 높은 우선순위이다. React에서 만든 우선순위 큐가, 최소힙이기 때문이다.
-특정 작업을 하다 높은 우선순위의 작업이 들어오면 멈추고 더 높은 우선순위의 작업을 하도록 동작하는데, 만약 작업을 하다가 Timeout으로 인해 작업을 다 못했을 경우 작업을 더 이어나가야 할 것이다. 
+특정 작업을 하다 높은 우선순위의 작업이 들어오면 멈추고 더 높은 우선순위의 작업을 하도록 동작하는데, 만약 작업을 하다가 Timeout으로 인해 작업을 다 못했을 경우 작업을 더 이어나가야 할 것이다.
 이 경우 requestHostTimeout() 에 작업을 담아 다시 요청하게 된다.
 
 여기까지 모두 끝났다면 다음은 Reconciler로 함수들로 들어가게 된다.
@@ -751,7 +744,7 @@ React의 Scheduler 내용을 위에서 다뤄보았고, 이제 Reconciler로 다
 <img src="./images/react/scheduler/29.png" alt="29.png"/> 
 <br/>
 
-이제 진짜로 Reconcilation과정이 다시 시작되는 것인데, 
+이제 진짜로 Reconcilation과정이 다시 시작되는 것인데,
 
 이 내용은 이전에 작성했던 [Fiber 아키텍처의 개념과 Fiber Reconcilation 이해하기](https://blog.woochan.info/blog/reconcilation) 글에서 다뤘었다.
 이 글의 주제는 아니기에 다루지는 않지만, 실제로 Performance Tab에서 확인해보면 아래와 같은 순서로 호출되는 것을 확인할 수 있다.
@@ -767,28 +760,16 @@ performWorkUntilDeadline, flushWork, workLoop 모두 위에서 다룬 친구들�
 
 6. 느낀점
 
-사실 원래 이 글은 useTransition이나 useDefferredValue같은 내용을 공부해보고 React의 동시성을 주제로 글을 작성하려 했었다. 
+사실 원래 이 글은 useTransition이나 useDefferredValue같은 내용을 공부해보고 React의 동시성을 주제로 글을 작성하려 했었다.
 그런데 막상 어떻게 쓰는지 사용방법만 작성하고자 하려니 '난 이게 어떻게 동작하는지도 제대로 모르는데... 어떤 도구인지도 제대로 모르면서 도구 사용법같은 글을 쓰는게 과연 맞나?' 라는 생각이 들었다.
-마침 추석 연휴겠다 제대로 이해해보고자 하는 욕심에... 
-스케줄러 코드를 살짝 열어보았다가 어느새 오기 생겨서 며칠 내내 이것만 보고있고... 그러다 보니 자연스럽게 주제가 스케줄러 분석으로 바뀌어 버렸다. 
+마침 추석 연휴겠다 제대로 이해해보고자 하는 욕심에...
+스케줄러 코드를 살짝 열어보았다가 어느새 오기 생겨서 며칠 내내 이것만 보고있고... 그러다 보니 자연스럽게 주제가 스케줄러 분석으로 바뀌어 버렸다.
 ~~(그래도 취업한게 아닌, 우테코 하고있는 지금같은 때 아니면 이런거 언제 공부해보겠냐 하는 생각으로 했는데... 이게 맞나 싶긴 하다ㅋㅋㅋㅋ)~~
 그래도 확실한건, 스케줄러 공부하고 나니 이제 Suspense 왜 쓰는지 확실하게 꺠달았다.
 
 <hr/>
 
 <i style="font-size:0.7rem; text-align:right">
-
 참고
-https://github.com/reactwg/react-18/discussions/65
-https://tv.naver.com/v/23652451
-https://github.com/facebook/react/blob/main
-https://jser.dev/react/2022/03/16/how-react-scheduler-works/
-https://sckimynwa.medium.com/concept-of-react-scheduler-2c887cbfe5a8
-https://caniuse.com/requestidlecallback
-https://developer.mozilla.org/ko/docs/Web/API/window/requestAnimationFrame
-https://yceffort.kr/2021/08/requestIdlecallback
-https://goidle.github.io/react/in-depth-react18-lane/
 
-</i>
-
-
+> https://github.com/reactwg/react-18/discussions/65 >https://tv.naver.com/v/23652451 >https://github.com/facebook/react/blob/main >https://jser.dev/react/2022/03/16/how-react-scheduler-works/ >https://sckimynwa.medium.com/concept-of-react-scheduler-2c887cbfe5a8 >https://caniuse.com/requestidlecallback >https://developer.mozilla.org/ko/docs/Web/API/window/requestAnimationFrame >https://yceffort.kr/2021/08/requestIdlecallback >https://goidle.github.io/react/in-depth-react18-lane/ > </i>

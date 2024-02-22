@@ -770,6 +770,16 @@ performWorkUntilDeadline, flushWork, workLoop 모두 위에서 다룬 친구들�
 <hr/>
 
 <i style="font-size:0.7rem; text-align:right">
-참고
 
-> https://github.com/reactwg/react-18/discussions/65 >https://tv.naver.com/v/23652451 >https://github.com/facebook/react/blob/main >https://jser.dev/react/2022/03/16/how-react-scheduler-works/ >https://sckimynwa.medium.com/concept-of-react-scheduler-2c887cbfe5a8 >https://caniuse.com/requestidlecallback >https://developer.mozilla.org/ko/docs/Web/API/window/requestAnimationFrame >https://yceffort.kr/2021/08/requestIdlecallback >https://goidle.github.io/react/in-depth-react18-lane/ > </i>
+참고
+https://github.com/reactwg/react-18/discussions/65
+https://tv.naver.com/v/23652451
+https://github.com/facebook/react/blob/main
+https://jser.dev/react/2022/03/16/how-react-scheduler-works/
+https://sckimynwa.medium.com/concept-of-react-scheduler-2c887cbfe5a8
+https://caniuse.com/requestidlecallback
+https://developer.mozilla.org/ko/docs/Web/API/window/requestAnimationFrame
+https://yceffort.kr/2021/08/requestIdlecallback
+https://goidle.github.io/react/in-depth-react18-lane
+
+</i>

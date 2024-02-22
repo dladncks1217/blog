@@ -2,7 +2,7 @@
 title: "Node.js의 Event Loop와 브라우저 Event Loop의 차이"
 category: "Node.js"
 date: "2022-07-06 08:00:00 +09:00"
-desc: "이벤트 루프라는 개념을 코드로서 구현 할 수는 있지만, 이벤트 루프 그 자체는 코드가 아니다."
+desc: '"EventLoop"를 코드로서 구현 할 수는 있지만, "EventLoop" 라는 개념 자체는 코드가 될 수 없다.'
 thumbnail: "./images/nodejs/eventloop/3.png"
 alt: "이벤트 루프라는 개념을 코드로서 구현 할 수는 있지만, 이벤트 루프 그 자체는 코드가 아니다."
 ---

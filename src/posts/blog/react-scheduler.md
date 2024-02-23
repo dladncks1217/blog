@@ -3,7 +3,7 @@ title: "동시성 모드 지원을 위한 React의 스케줄러 분석하기"
 category: "React"
 date: "2023-10-02 01:07:00 +09:00"
 desc: "React는 어떻게 동시성 매커니즘을 구현하였는가"
-thumbnail: "./images/react/scheduler/21.png"
+thumbnail: "./images/react/scheduler/24.png"
 alt: "동시성 모드 지원을 위한 React의 스케줄러 분석하기"
 ---
 

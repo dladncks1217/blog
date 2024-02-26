@@ -2,7 +2,7 @@
 title: "React에서 성능을 최적화할 수 있는 10가지 방법"
 category: "React"
 date: "2023-09-17 18:15:00 +09:00"
-desc: '최적화에 내 노력과 시간을 쏟기 전에 "꼭 최적화가 필요한가?"를 고민해보자'
+desc: "최적화 전에 최적화가 필요한지부터 고민해보자"
 thumbnail: "./images/react/react-optimization/18.png"
 alt: "React에서 성능을 최적화할 수 있는 10가지 방법"
 ---

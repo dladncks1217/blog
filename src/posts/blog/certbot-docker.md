@@ -7,8 +7,6 @@ thumbnail: "./images/infra/certbot+docker/3.png"
 alt: "Let's Encrypt를 이용한 Docker 컨테이너 내 Nginx에 SSL/TLS 인증서 적용하기"
 ---
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fcertbot%2Bdocker%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-
 우테코 프로젝트에서 Nginx를 Docker 컨테이너에 올려 사용하려고 개인 ec2에서 공부하던 도중 https 접속은 불가능한 것을 확인했다.
 
 https 접속을 위해서는 독립된 인증 기관(CA)에서 SSL/TLS 인증서를 획득해야 한다. 웹 사이트가 신뢰를 구축하기 위해 데이터를 교환하기 전에 브라우저와 인증서를 공유하기 때문이다.
@@ -180,3 +178,5 @@ https를 쓰려면 클라이언트(브라우저)는 서버로부터 인증서를
 
 | ![3](./images/infra/certbot+docker/3.png) | ![4](./images/infra/certbot+docker/4.png) |
 | ----------------------------------------- | ----------------------------------------- |
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fcertbot%2Bdocker%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)

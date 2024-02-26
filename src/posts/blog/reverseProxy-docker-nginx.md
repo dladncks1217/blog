@@ -7,8 +7,6 @@ thumbnail: "./images/infra/reverseProxy_docker+nginx/4.png"
 alt: "Docker 환경에 Nginx를 Reverse Proxy로 구축하기"
 ---
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2FreverseProxy_docker%2Bnginx%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-
 최근 우테코에서 팀 프로젝트를 진행하며 프론트엔드 배포 환경을 구축해보았다.
 
 팀당 EC2가 3대씩 주어지는 상황으로(public 두 대, private 한 대), 백엔드 팀원들과 합의 하에 CI/CD를 담당할 Jenkins, 백엔드 + 프론트엔드, DB 이렇게 EC2 각 3대를 할당했다.
@@ -225,3 +223,5 @@ sudo docker rm -f {컨테이너ID}
 
 | ![3](./images/infra/reverseProxy_docker+nginx/3.png) | ![4](./images/infra/reverseProxy_docker+nginx/4.png) |
 | ---------------------------------------------------- | ---------------------------------------------------- |
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2FreverseProxy_docker%2Bnginx%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)

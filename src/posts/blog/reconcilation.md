@@ -7,8 +7,6 @@ thumbnail: "./images/react/reconcilation/21.png"
 alt: "Fiber 아키텍처의 개념과 Fiber Reconcilation 이해하기"
 ---
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Freconcilation&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-
 React를 사용하다 보면 React Fiber 라는 이름을 들어봤을 것이다.
 React는 Fiber라는 아키텍처를 React 16버전부터 채택하였고, 지금도 지속적으로 업데이트되고 있다.
 기존의 아키텍처에 어떤 문제가 있었길래 16버전부터 갑자기 Fiber 아키텍처를 채택한 이유가 뭘까?
@@ -366,3 +364,5 @@ https://d2.naver.com/helloworld/2690975
 https://segmentfault.com/a/1190000040445026/en
 
 </i>
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Freconcilation&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)

@@ -7,8 +7,6 @@ thumbnail: "./images/nodejs/eventloop/3.png"
 alt: "이벤트 루프라는 개념을 코드로서 구현 할 수는 있지만, 이벤트 루프 그 자체는 코드가 아니다."
 ---
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fevent-loop&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-
 JavaScript와 관련된 공부를 하다보면 이벤트 루프라는 말을 종종 마주하곤 한다.
 Chrome같은 브라우저나 JavaScript 런타임인 Node.js에는 이벤트 루프라는 개념이 존재한다.
 이 개념을 위하여 Node.js의 경우 libuv라는 라이브러리를 사용하고, Chrome의 경우 libevent라는 라이브러리를 사용한다.
@@ -261,3 +259,5 @@ https://yceffort.kr/2021/08/browser-nodejs-event-loop
 https://blog.naver.com/pjt3591oo/222782354235
 
 </i>
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fevent-loop&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)

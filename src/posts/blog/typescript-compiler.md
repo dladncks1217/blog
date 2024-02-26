@@ -7,8 +7,6 @@ thumbnail: "./images/typescript/compiler/14.png"
 alt: "타입스크립트 컴파일러의 동작 방식"
 ---
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Ftypescript-compiler&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-
 최근 우테코에서 미션을 진행하며 TypeScript + React를 사용하고 있다.
 
 자주 사용하다보니 타입스크립트 컴파일러의 동작 방식이 궁금해졌다.
@@ -377,3 +375,5 @@ https://github.com/microsoft/TypeScript/tree/main
 https://basarat.gitbook.io/typescript/overview
 
 </i>
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Ftypescript-compiler&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)

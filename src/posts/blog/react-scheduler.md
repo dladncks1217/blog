@@ -7,8 +7,6 @@ thumbnail: "./images/react/scheduler/24.png"
 alt: "동시성 모드 지원을 위한 React의 스케줄러 분석하기"
 ---
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Freact-scheduler&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-
 이번 글에서는 React의 동시성이 어떻게 구성되어있는지에 대해 다뤄보고자 한다.
 
 ### 0. 동시성이란?
@@ -783,3 +781,5 @@ https://yceffort.kr/2021/08/requestIdlecallback
 https://goidle.github.io/react/in-depth-react18-lane
 
 </i>
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Freact-scheduler&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)

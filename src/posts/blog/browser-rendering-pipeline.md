@@ -7,8 +7,6 @@ thumbnail: "./images/fe/browser-rendering-pipeline/26.png"
 alt: "브라우저의 렌더링 파이프라인 (Chromium)"
 ---
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fbrowser-rendering-pipeline&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-
 최근 브라우저 렌더링 파이프라인을 주제로 테코톡 발표를 했다.
 사실 예전에 썼던 글이 하나 있긴 한데, 발표를 위해 다시 공부를 하다 보니 예전에 썼던 글에 미흡한 부분이 많다는 점을 느꼈다.
 무엇보다 과정 중 일부가 바뀌었는데, 공식 자료 중 일부가 레거시가 된 사실을 모르고 작년에 공부를 했던 것을 확인했다.
@@ -460,3 +458,5 @@ SKIA의 Quad 명령어를 통해 OpenGL을 거쳐 GPU 작업이 일어나고, �
 어떻게 브라우저가 동작하는지에 대해 공부해본다면 어떤 CSS 속성을 쓰는지에 따라 Reflow가 발생할지, RePaint가 발생할지 등에 대한 점들을 고려해볼 수 있을 것이다.
 Reflow가 발생한다면 RePaint나 그마저도 안나도록 고려한다거나, 불필요한 RePaint가 발생한다면 이를 막기 위한 리팩토링을 해볼 수 있지 않을까 싶다.
 그리고 하드웨어 가속을 이용했을 때 얻을 수 있는 이점이 있다고 판단된다면, 레이어를 쪼개 하드웨어 가속을 고려해 볼 수도 있을 것이다! (스타일 재계산을 줄이기 위해)
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fbrowser-rendering-pipeline&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)

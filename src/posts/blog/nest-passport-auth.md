@@ -7,8 +7,6 @@ thumbnail: "./images/be/nest-passport-local/1.png"
 alt: "NestJS + Passport + TypeORM을 이용한 로그인/회원가입 API 구현하기"
 ---
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fnest-passport-auth%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-
 <img width="80%" src="./images/be/nest-passport-local/1.png" alt="1.png"/> 
 <br/>
 
@@ -728,3 +726,5 @@ export class LocalSerializer extends PassportSerializer {
 ```
 
 결론적으로 봤을 때, 동작하는 과정에 있어 Express에서 passport를 사용했을 때와 구조가 크게 다를 것이 없다.
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fnest-passport-auth%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)

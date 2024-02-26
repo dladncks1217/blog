@@ -7,8 +7,6 @@ thumbnail: "./images/nodejs/cjs-treeshake/11.png"
 alt: "CommonJS방식 동작원리 분석하기"
 ---
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2F%2508cjs-treeshake&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-
 CommonJS 방식 (require)과 ESModule 방식(import)의 차이는 뭘까?
 왜 기존의 CommonJS 를 두고 ESModule 방식을 채택하고자 하는걸까?
 
@@ -323,3 +321,5 @@ closure로 한 이유에는 그럴만한 사연이 있다.
 
 이렇게 CommonJS방식 동작원리를 분석해보았다.
 의존성 문제를 해결하다보면 종종 cjs가 필요할 때가 있어보이긴 하지만, 그 외로 브라우저 단에서는 굳이 쓸 이유가 있을까 싶긴 하다 ㅎㅎ...
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2F%2508cjs-treeshake&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)

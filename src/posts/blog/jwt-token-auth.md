@@ -7,8 +7,6 @@ thumbnail: "./images/fe+be/token-auth/3.png"
 alt: "JWT를 이용한 토큰 인증 방식 구현하기"
 ---
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fjwt-token-auth%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-
 JWT를 이용하여 토큰 인증 방식을 구현하는 글을 작성해보려 한다.
 먼저, 토큰 방식을 왜 쓰는지부터 알아보자.
 
@@ -595,3 +593,5 @@ module.exports = router
 
 Spring에서 사용할 경우 만료된 토큰값을 읽어 userId를 가져오려 하는 순간 토큰이 터진다고 한다.
 이 경우 redis에 키와 값을 반대로 저장하고, 직접 까보는것이 아닌 토큰 자체를 키 키로 하는 방법으로 사용하기도 한다.
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fjwt-token-auth%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)

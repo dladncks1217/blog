@@ -7,8 +7,6 @@ thumbnail: "./images/javascript/hidden-class/9.png"
 alt: "컴파일 단계에서 오프셋을 결정할 수 없는 JS 엔진, 어떻게 해결했을까?"
 ---
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fhidden-class&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-
 이 글의 주제인 히든 클래스와 인라인 캐싱에 대해 설명하기 전에,
 먼저 자바스크립트의 객체의 프로퍼티와 프로퍼티 값은 어떻게 저장이 될지 한번 생각해보자.
 
@@ -184,3 +182,5 @@ a객체가 참조하고있는 히든 클래스의 transition Table을 참조하�
 
 그러다보니 이 인라인 캐싱의 가장 큰 혜택을 받을 수 있는 경우중 하나는 프로퍼티가 생성 또는 추가되지 않는다는 가정 하의 반복문의 경우이다.
 맨 처음 접근한 뒤로는 히든클래스를 그대로 캐싱하기에 오프셋 값을 마음대로 다 쓸 수 있게 된다.
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.woochan.info%2Fblog%2Fhidden-class&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)

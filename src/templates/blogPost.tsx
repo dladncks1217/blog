@@ -2,6 +2,7 @@ import React from "react"
 
 import Giscus from "@giscus/react"
 import { type PageProps, graphql } from "gatsby"
+import { Helmet } from "react-helmet"
 import styled from "styled-components"
 
 import SEO from "~/src/components/seo"
@@ -33,49 +34,59 @@ const BlogPost: React.FC<PageProps<Queries.Query>> = ({ data }) => {
     thumbnail?.childImageSharp?.gatsbyImageData!.images!.fallback!.src
 
   return (
-    <Layout>
-      <SEO title={title} desc={desc} image={ogImagePath} />
-      <main>
-        <article>
-          <OuterWrapper>
-            <InnerWrapper>
-              <div>
-                <header>
-                  <Info>
-                    <PostCategory>{category}</PostCategory>
-                    <Time dateTime={date!}>{date}</Time>
-                  </Info>
-                  <Title>{title}</Title>
-                  <Desc>{desc}</Desc>
-                </header>
-                <Divider />
-                <Markdown
-                  dangerouslySetInnerHTML={{ __html: html ?? "" }}
-                  rhythm={rhythm}
-                />
-              </div>
-            </InnerWrapper>
-          </OuterWrapper>
-        </article>
-        <CommentWrap>
-          <Giscus
-            id="comments"
-            repo={commentRepo as `${string}/${string}`}
-            repoId={commentRepoId as string}
-            category="Comments"
-            categoryId={commentCategoryId as string}
-            mapping="pathname"
-            strict="0"
-            reactionsEnabled="1"
-            emitMetadata="0"
-            inputPosition="bottom"
-            theme={GiscusTheme}
-            lang="ko"
-            loading="lazy"
-          />
-        </CommentWrap>
-      </main>
-    </Layout>
+    <>
+      <Helmet>
+        <meta
+          property="og:image"
+          content="https://avatars.githubusercontent.com/u/45068522?v=4"
+        />
+        <meta property="og:image:width" content="400" />
+        <meta property="og:image:width" content="50" />
+      </Helmet>
+      <Layout>
+        <SEO title={title} desc={desc} image={ogImagePath} />
+        <main>
+          <article>
+            <OuterWrapper>
+              <InnerWrapper>
+                <div>
+                  <header>
+                    <Info>
+                      <PostCategory>{category}</PostCategory>
+                      <Time dateTime={date!}>{date}</Time>
+                    </Info>
+                    <Title>{title}</Title>
+                    <Desc>{desc}</Desc>
+                  </header>
+                  <Divider />
+                  <Markdown
+                    dangerouslySetInnerHTML={{ __html: html ?? "" }}
+                    rhythm={rhythm}
+                  />
+                </div>
+              </InnerWrapper>
+            </OuterWrapper>
+          </article>
+          <CommentWrap>
+            <Giscus
+              id="comments"
+              repo={commentRepo as `${string}/${string}`}
+              repoId={commentRepoId as string}
+              category="Comments"
+              categoryId={commentCategoryId as string}
+              mapping="pathname"
+              strict="0"
+              reactionsEnabled="1"
+              emitMetadata="0"
+              inputPosition="bottom"
+              theme={GiscusTheme}
+              lang="ko"
+              loading="lazy"
+            />
+          </CommentWrap>
+        </main>
+      </Layout>
+    </>
   )
 }
 

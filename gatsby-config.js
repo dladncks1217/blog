@@ -104,6 +104,7 @@ const markdownPlugins = [
 ]
 
 const searchPlugins = [
+  "gatsby-plugin-open-graph-images",
   "gatsby-plugin-sitemap",
   "gatsby-plugin-robots-txt",
   {
